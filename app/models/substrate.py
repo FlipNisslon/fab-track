@@ -5,7 +5,6 @@ class Substrate(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     material: str
     description: Optional[str] = None
-    layers: Optional[str] = None  # Store as comma-separated string for simplicity
 
 class Interface(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)

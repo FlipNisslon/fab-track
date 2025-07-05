@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from app.models.recipe import Recipe, ProcessStep, Step
+from app.models.recipe import Recipe, ProcessStep, Step, RecipeProcessStepLink
 from app.controllers.recipes_controller import get_all_recipes, add_recipe
 from app.controllers.process_steps_controller import get_all_process_steps, add_process_step
 from app.controllers.steps_controller import get_all_steps, add_step
@@ -14,8 +14,8 @@ def get_recipes():
     return get_all_recipes()
 
 @router.post("/recipes", response_model=Recipe)
-def create_recipe(recipe: Recipe):
-    return add_recipe(recipe)
+def create_recipe(recipe: Recipe, process_steps: List[int]):
+    return add_recipe(recipe, process_steps)
 
 @router.put("/recipes/{recipe_id}", response_model=Recipe)
 def update_recipe(recipe_id: int, recipe: Recipe):

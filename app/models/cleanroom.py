@@ -1,15 +1,7 @@
-from pydantic import BaseModel
-from typing import List, Optional
+from typing import Optional
+from sqlmodel import SQLModel, Field
 
-class Machine(BaseModel):
-    id: str
+class Cleanroom(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
     name: str
     description: Optional[str] = None
-    specifications: Optional[str] = None
-    process_step_ids: List[str] = []
-
-class Cleanroom(BaseModel):
-    id: str
-    name: str
-    description: Optional[str] = None
-    machines: List[Machine] = []

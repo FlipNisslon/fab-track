@@ -1,11 +1,16 @@
 from app.models.substrate import Interface
+from app.db import get_session
+from sqlmodel import select
 from typing import List
 
-interfaces: List[Interface] = []
-
 def get_all_interfaces() -> List[Interface]:
-    return interfaces
+    with get_session() as session:
+        interfaces = session.exec(select(Interface)).all()
+        return interfaces
 
 def add_interface(interface: Interface) -> Interface:
-    interfaces.append(interface)
-    return interface
+    with get_session() as session:
+        session.add(interface)
+        session.commit()
+        session.refresh(interface)
+        return interface

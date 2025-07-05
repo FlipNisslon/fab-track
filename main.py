@@ -1,7 +1,10 @@
 from fastapi import FastAPI
 from app.routers import recipes, cleanrooms, substrates, machines, process_steps, steps
+from app.db import init_db
+
 
 app = FastAPI()
+init_db()
 
 
 app.include_router(recipes.router)

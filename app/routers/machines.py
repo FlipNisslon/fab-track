@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from app.models.machine import Machine
 from app.controllers.machines_controller import get_all_machines, add_machine
 from typing import List

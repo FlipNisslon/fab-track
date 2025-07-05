@@ -1,15 +1,14 @@
 from fastapi import APIRouter
 from app.models.machine import Machine
+from app.controllers.machines_controller import get_all_machines, add_machine
 from typing import List
 
 router = APIRouter()
-machines: List[Machine] = []
 
 @router.get("/machines", response_model=List[Machine])
 def get_machines():
-    return machines
+    return get_all_machines()
 
 @router.post("/machines", response_model=Machine)
 def create_machine(machine: Machine):
-    machines.append(machine)
-    return machine
+    return add_machine(machine)

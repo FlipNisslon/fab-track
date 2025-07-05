@@ -1,11 +1,11 @@
 from fastapi import APIRouter
 from app.models.substrate import Substrate, Interface
+from app.controllers.interfaces_controller import get_all_interfaces, add_interface
 from typing import List
 
 router = APIRouter()
 
 substrates: List[Substrate] = []
-interfaces: List[Interface] = []
 
 @router.get("/substrates", response_model=List[Substrate])
 def get_substrates():
@@ -18,9 +18,8 @@ def create_substrate(substrate: Substrate):
 
 @router.get("/interfaces", response_model=List[Interface])
 def get_interfaces():
-    return interfaces
+    return get_all_interfaces()
 
 @router.post("/interfaces", response_model=Interface)
 def create_interface(interface: Interface):
-    interfaces.append(interface)
-    return interface
+    return add_interface(interface)

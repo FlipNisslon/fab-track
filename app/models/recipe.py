@@ -1,22 +1,24 @@
-from pydantic import BaseModel
-from typing import List, Optional
+from typing import Optional
+from sqlmodel import SQLModel, Field
 
-class Step(BaseModel):
-    id: str
+class Step(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
     name: str
     description: Optional[str] = None
     temperature: Optional[float] = None
     pressure: Optional[float] = None
     duration: Optional[float] = None
 
-class ProcessStep(BaseModel):
-    id: str
+class ProcessStep(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
     name: str
     description: Optional[str] = None
-    steps: List[Step] = []
+    # For simplicity, store step IDs as comma-separated string
+    step_ids: Optional[str] = None
 
-class Recipe(BaseModel):
-    id: str
+class Recipe(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
     name: str
     description: Optional[str] = None
-    process_steps: List[ProcessStep] = []
+    # For simplicity, store process step IDs as comma-separated string
+    process_step_ids: Optional[str] = None
